@@ -1,0 +1,65 @@
+# codeR
+
+**codeR** makes Twitter Codes easy.
+
+## Installation
+
+Install [this](https://www.roblox.com/library/7057036884/Twitter-Codes-by-BlueJay) model into your game and follow the instructions inside.
+
+## How it works
+
+Using our service, all your developers need to do is to create a decryptor to parse the codes.
+
+## Example Code
+
+```lua
+-- Server Side Code
+local DataStore2 = require(--[[ DataStore2 API ]]--)
+
+local Remote = -- Remote in ReplicatedStorage
+
+function split( str, inSplitPattern, outResults )
+	if not outResults then
+		outResults = { }
+	end
+	local theStart = 1
+	local theSplitStart, theSplitEnd = string.find( str, inSplitPattern, theStart )
+	while theSplitStart do
+		table.insert( outResults, string.sub( str, theStart, theSplitStart-1 ) )
+		theStart = theSplitEnd + 1
+		theSplitStart, theSplitEnd = string.find( str, inSplitPattern, theStart )
+	end
+	table.insert( outResults, string.sub( str, theStart ) )
+	return outResults
+end
+
+
+Remote.OnServerEvent:Connect(function(player, code)	
+	-- Parse the code
+	-- Ex: coins_200000 parses to 200,000, which then gets added to the leaderstats Money.
+	local value = split(code.value, '_')
+	if value[1] == 'coins' then
+		player.leaderstats.Money.Value += tonumber(value[2])
+	end
+end)
+```
+
+```lua
+-- Client Side Code
+local player = game.Players.LocalPlayer
+local BlueJay = require(-- Client API --)
+local TestRemote = -- Remote in replicated storage
+local CodeText = -- TextBox
+
+script.Parent.Buttons:WaitForChild("Confirm").MouseButton1Click:connect(function()
+	local redeemed, codeChanged = BlueJay.RedeemCode(CodeText.Text)
+	if redeemed then
+		script.Parent.Buttons.Confirm.Text = 'Redeemed!'
+		TestRemote:FireServer(codeChanged)
+	else
+		script.Parent.Buttons.Confirm.Text = 'Error Redeeming!'
+	end
+	wait(5)
+	script.Parent.Buttons.Confirm.Text = 'CONFIRM'
+end)
+```
