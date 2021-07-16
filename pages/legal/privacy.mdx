@@ -24,6 +24,14 @@ When you are paying for services, your credit card information is processed thro
 
 All of this information is used only for the purpose of providing our service and not for any other reasons.
 
+When you use our services, we use a self-hosted Umami server. It collects the following information:
+- **Page URL—** we use this to see how many times a page has been viewed
+- **HTTP referer—** we use this to see how many people are coming from certain websites
+- **Browser—** we use this to see what browsers and browser versions are being used
+- **Operating system—** we use this to see what operating systems are being used
+- **Device type—** we use this to see what kinds of devices are being used (desktop, laptop, mobile)
+- **Visitor country—** we use this to get a general idea of where users are from. This is found using the visitor's IP address, which is only used to find said country and then is discarded. It is never stored in our database or logs.
+
 ## What data is shared, sold, or transferred?
 We do not share, sell, or transfer any data collected with any third parties. Data is stored on OVH in Canada and uses OVH's keys.
 
@@ -36,6 +44,8 @@ Because you must use Discord to create an account, you are also under [their pri
 The data is processed by the following parties:
 - Vercel and their subprocessors: They host our websites. As of writing, they do not mention who powers their services.
 - OVH [and their subprocessors](https://us.ovhcloud.com/legal/data-processing-agreement): They host our databases and Discord bots.
+- Uberspace, rh-tec Business GmbH, uvensys GmbH, and their subprocessors: They host the Umami instance.
+- Matt Ronchetto (doamatto) and the `u.nneko.me` instance: They manage the Umami instance.
 
 ## What if there's a data breach?
 In the event of a data breach, we will notify users within 72 hours of us becoming aware of the breach via email.
@@ -44,7 +54,7 @@ In the event of a data breach, we will notify users within 72 hours of us becomi
 All data is encrypted using modern, standardised, and secure methods. Emails sent to and from our servers use DKIM, SPF, and secure mail servers to protect both our prviacy and yours, as well as better validate email authenticity. Our sites use HSTS, only use HTTPS, and have strict CSP policies to prevent malicious scripts from being run.
 
 ## How do I delete or manage my data?
-You can manage or delete your data at any time [via the account panel.](https://bluejay.one/app/settings)
+You can manage or delete your data at any time [via the account panel.](https://bluejay.one/app/settings) You cannot delete, nor request deletion, of data from Umami, as there is no way to identify users.
 
 ## Data handling for minors
 We do not knowingly collect data on users under the age of 16. In the event that we are made aware of someone under this age requirement registers for our service, we take appropriate means to delete that data permanently.
