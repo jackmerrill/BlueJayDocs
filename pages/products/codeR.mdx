@@ -14,34 +14,22 @@ Using our service, all your developers need to do is to create a decryptor to pa
 
 ```lua
 -- Server Side Code
-local DataStore2 = require(--[[ DataStore2 API ]]--)
+local BlueJay = game.ServerScriptService:WaitForChild("BlueJay")
+local MainModule = BlueJay:WaitForChild("MainModule")
+local BlueJayAPI = require(MainModule.Scripts.Server.API)
 
-local Remote = -- Remote in ReplicatedStorage
+local TestRemote = game.ReplicatedStorage.Test
 
-function split( str, inSplitPattern, outResults )
-	if not outResults then
-		outResults = { }
-	end
-	local theStart = 1
-	local theSplitStart, theSplitEnd = string.find( str, inSplitPattern, theStart )
-	while theSplitStart do
-		table.insert( outResults, string.sub( str, theStart, theSplitStart-1 ) )
-		theStart = theSplitEnd + 1
-		theSplitStart, theSplitEnd = string.find( str, inSplitPattern, theStart )
-	end
-	table.insert( outResults, string.sub( str, theStart ) )
-	return outResults
-end
-
-
-Remote.OnServerEvent:Connect(function(player, code)	
-	-- Parse the code
-	-- Ex: coins_200000 parses to 200,000, which then gets added to the leaderstats Money.
-	local value = split(code.value, '_')
-	if value[1] == 'coins' then
-		player.leaderstats.Money.Value += tonumber(value[2])
+TestRemote.OnServerEvent:Connect(function(player, code)	
+	if BlueJayAPI:HasRedeemedCode(code, player) then		
+		local value = code.value:split('_')
+		if value[1] == 'coins' then
+			player.leaderstats.Money.Value += tonumber(value[2])
+		end
 	end
 end)
+
+
 ```
 
 ```lua
